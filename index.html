@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta content="utf-8" http-equiv="encoding">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+    <title>Video Conference</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
+
+    <link rel="icon" href="" sizes="32x32">
+    <link rel="icon" href="" sizes="192x192">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/custom.css">
+    <title>PunjabiStudios live</title>
+</head>
+
+<body>
+    <!--wrapper starts-->
+    <div class="wrapper">
+        <!--header-->
+        <header id="header">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-4 col-auto">
+                        <div class="nav" id="nav-toggle">
+                            <a href="#users" data-toggle="modal" data-target="#exampleModal">
+                                <i class="icon-profile"></i> Users
+                                <span class="notify" style="display:none" id="member-counter"></span>
+                            </a>
+                            <a href="#chat" id="chat-box">
+                                <i class="icon-chat"></i> Chat
+                                <span class="notify" style="display:none" id="chat-counter"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col">
+                        <h5><span class="title text-capitalize" id="sessionTitle"></span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!--main content starts-->
+        <main class="content" id="content">
+            <aside>
+                <div id="users">
+                    <div class="lt-default users">
+                        <div class="default-content" id="user-list-panel">
+                        </div>
+                        <div class="default-footer">
+                        </div>
+                    </div>
+                </div>
+                <div id="chat">
+                    <div class="lt-default chat">
+                        <div class="default-content" id="chatContainer">
+                            <div class="lt-scroll">
+                                <div class="lt-scroll" id="chatMsgArea">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="default-footer">
+                            <form class="default-form">
+                                <input type="text" id="chatMsg" placeholder="Type message here..">
+                                <button id="send-chatmsg" class="icon-send"></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="video-main" id="main-video">
+                <div class="video-controls">
+                    <i></i>
+                </div>
+                <div class="member-video video-trainer">
+                    <div class="member-wrap-video" id="mainArena">
+                        <div class="trainer-profile-circle">
+                            <div class="circle">
+                                <span id="trainerName"></span>
+                            </div>
+                        </div>
+                        <!-- video wil go here -->
+                        <div class="video-info">
+                            <div class="name" id="mainArenaTitle"> <span id="localName"></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-list">
+                <div class="lt-default">
+                    <div class="default-content">
+                        <div class="video-members">
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="alerts-wrap">
+
+                </div>
+            </div>
+        </main>
+        <!--main content ends-->
+
+
+        <!--footer-->
+        <footer id="footer">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col col-auto hidden-md-down">
+                        <div class="footer-item">
+                            <img src="img/site-logo.png" alt="">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="footer-nav">
+                            <div class="switcher">
+                                <label for="microphone">
+                                    <i class="icon-microphone"></i>
+                                    <input id="microphone" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="switcher">
+                                <label for="video">
+                                    <i class="icon-video"></i>
+                                    <input id="video" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-12 col-sm-auto">
+                        <div class="footer-item text-right">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col" style="padding-top: 12px;">
+                                        <span class="time" id="sessionTime" style="padding-top: 12px;">
+                                            <label id="sessionTimeMinutes">00</label>:<label
+                                                id="sessionTimeSeconds">00</label>
+                                        </span>
+                                    </div>
+                                    <div class="col-8">
+                                        <a id="hangoutBtn" class="theme-btn"> </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!--wrapper ends-->
+
+    <!-- INVITE MODAL -->
+    <div class="modal fade" id="inviteForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Invite People</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body">
+                        <label for="recipient-name" class="col-form-label">Copy session name to Join</label>
+                        <p>
+                            <input type="text" id="inviteLink" disabled class="form-control">
+                            <a role="button" class="btn btn-default popover-test" title="Popover title"
+                                data-content="Popover body content is set in this attribute.">Copy</a>
+                        </p>
+                    </div>
+                    <form id="inviteShareForm" class="default-form">
+                        <input type="text" placeholder="Enter an Email">
+                        <button class="icon-send"></button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="theme-btn">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- THANKYOU MODAL -->
+    <div class="modal fade" id="thankyou" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Thank you</h5>
+                </div>
+                <div class="modal-body">
+                    You have successfully left the session. Thank you for using PunjabiStudios.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Central Modal Medium Success -->
+    <div class="modal fade" id="rejoining" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-notify modal-success" role="document">
+            <!--Content-->
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header">
+                    <p class="heading lead">Connection Error</p>
+                </div>
+                <!--Body-->
+                <div class="modal-body">
+                    <div class="text-center">
+                        <p>Oops! Something went wrong and we couldn't connect to the conference. Press the <i>Rejoin</i>
+                            button to reconnect now.</p>
+                        <br>
+                        <p>We're trying to fix this. Reconnecting in <span id="rejoiningTimer">10</span> sec...</p>
+                    </div>
+                </div>
+
+                <!--Footer-->
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-primary" onClick='clearRejoinTimer(event)'
+                        data-dismiss="modal">Rejoin Now</button>
+                    <!-- <a type="button" class="btn btn-success">Get it now <i class="far fa-gem ml-1 text-white"></i></a> -->
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+
+    <!-- Central Modal Medium Success -->
+    <div class="modal fade" id="unsupportedBrowser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-notify modal-success" role="document">
+            <!--Content-->
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header">
+                    <p class="heading lead">Unsupported browser</p>
+                </div>
+
+                <!--Body-->
+                <div class="modal-body">
+                    <div class="text-center">
+                        <i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>
+                        <p>Oops! Looks like you're trying to join session from an <b>Unsupported Browser</b>. 
+                            <br><br>
+                            For awesome experience, try using a Desktop browser or
+                            download the <span style="color: #007bff;">PunjabiStudios</span> mobile app to join
+                            now.</p>
+                            <br>
+                            <small id="emailHelp" class="form-text text-muted">In case you already have an app, click on the following button.</small>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>
+                        <br>
+                        <p><button type="button" onClick='openInApp(event)' class="btn btn-primary">Open in App</button> 
+                        <br>
+                    </div>
+                </div>
+                <!--Footer-->
+                <div class="modal-footer">
+                    <a type="button" href="itms-apps://itunes.apple.com/app/id1459232090" class="btn btn-secondary">Get App <i class="far fa-gem ml-1 text-white"></i></a>
+                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Get app</button> -->
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+
+    <!-- Central Modal Medium Success-->
+    <div class="modal fade" id="hostEndedSession" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Thank you</h5>
+                </div>
+                <div class="modal-body">
+                    This session was ended by the Trainer. Thank you for using PunjabiStudios.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onClick='rejoin(event)'
+                        data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="enterName" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Login to Join this Session</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <i class="fa fa-user"></i>
+                        <input type="text" name="joinViaLinkUsername" class="form-control" placeholder="Username"
+                            required="required">
+                        <div class="invalid-feedback">
+                            Please provide a valid username.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-user"></i>
+                        <input type="password" name="joinViaLinkPassword" class="form-control" placeholder="Password"
+                            required="required">
+                        <div class="invalid-feedback">
+                            Please provide valid Password!
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onClick="joinViaLink(event)"
+                        data-dismiss="modal">Start</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="unauthorised" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Unauthorised</h5>
+                </div>
+                <div class="modal-body">
+                    You are not authorised to take this action. Please contact admin.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="confirmKickOut" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Remove participant</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to remove participant from the session ?
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary">Remove</button>
+            </div>
+        </div>
+        </div>
+    </div>  
+
+    <div class="modal fade" id="conferenceError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Something went </h5>
+                </div>
+                <div class="modal-body">
+                    Unfortunately, Something went wrong!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" onClick="rejoin(event)" data-dismiss="modal">Rejoin
+                        now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src='./lib/lib-jitsi-meet.min.js' defer></script>
+    <!-- <script src='https://meet.puneetsethi.com/libs/lib-jitsi-meet.min.js' defer></script> -->
+    <script src='./lib/moment.min.js' defer></script>
+    <script src="./lib/jquery.min.js" defer></script>
+    <script src="./js/main.js" defer></script>
+    <script src="./lib/bootstrap.min.js" defer></script>
+    <script src="./js/script.js" defer></script>
+</body>
+
+</html>
